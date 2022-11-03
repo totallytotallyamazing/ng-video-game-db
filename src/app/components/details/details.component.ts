@@ -25,14 +25,21 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.routeSub = this.activatedRoute.params.subscribe((params: Params) => {
       this.gameId = params['id'];
       this.getGameDetails(this.gameId);
+
+      console.log(typeof this.game);
+
     });
   }
+
+  isObject(val: any): boolean { return typeof val === 'object'; }
 
   getGameDetails(id: string): void {
     this.gameSub = this.httpService
       .getGameDetails(id)
       .subscribe((gameResp: Game) => {
         this.game = gameResp;
+
+        console.log(typeof this.game);
 
         setTimeout(() => {
           this.gameRating = this.game.metacritic;
